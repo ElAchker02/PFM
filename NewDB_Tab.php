@@ -14,6 +14,8 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -127,16 +129,40 @@
                         $cnxS = new mysqli("localhost","root","",$DBs);
 
                         $sql1 = "create table $table ( ";
+                        $found = false;
                         for ($i=0; $i < count($colonne); $i++) { 
                             if($i != count($colonne) - 1){
-                            $sql1 .= $colonne[$i]." ".($types[$i] != "VARCHAR" ? $types[$i] : $types[$i] ." (".$longueur[$i] . ")") .($primary[$i] == 0 ? "" : " primary key ") .",";
+                            $sql1 .= $colonne[$i]." ".($types[$i] != "VARCHAR" ? $types[$i] : $types[$i] ." (".$longueur[$i] . ")") ;
+                            if($primary[$i] == 0 ){
+                                $sql1 .= "";
+                            }
+                            elseif($primary[$i] == 1 && $found == false){
+                                $sql1 .= " primary key ";
+                                $found = true;
+                            }
+                            elseif($primary[$i] == 1 && $found == true)
+                            {
+                                $sql1 .= "";
+                            }
+                            $sql1 .= ",";
                             }
                             else{
-                            $sql1 .= $colonne[$i]." ".($types[$i] != "VARCHAR" ? $types[$i] : $types[$i] ." (".$longueur[$i] . ")") .($primary[$i] == "0" ? "" : " primary key ") ."
-                            )ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+                            $sql1 .= $colonne[$i]." ".($types[$i] != "VARCHAR" ? $types[$i] : $types[$i] ." (".$longueur[$i] . ")") ;
+                            if($primary[$i] == 0 ){
+                                $sql1 .= "";
+                            }
+                            elseif($primary[$i] == 1 && $found == false){
+                                $sql1 .= " primary key ";
+                                $found = true;
+                            }
+                            elseif($primary[$i] == 1 && $found == true)
+                            {
+                                $sql1 .= "";
+                            }
+                             $sql1 .=")ENGINE=InnoDB DEFAULT CHARSET=utf8;";
                             }
                         }
-                        
+                        // echo $sql1;
                         $cnxS->query($sql1);
                         
                         
@@ -149,8 +175,16 @@
                         while($row = $results->fetch_assoc()){
                             $id = $row['id'];
                         }
+                        $found2 =false;
                         for ($i=0; $i < count($colonne); $i++) { 
-                            $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",".$primary[$i]." ,0".",".$id.")";
+                            if($primary[$i] == 1 && $found2 == false){
+                                $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",".$primary[$i]." ,0".",".$id.")";
+                                $found2 = true;
+                            }
+                            else{
+                                $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",0,0".",".$id.")";
+
+                            }
                         $cnx->query($sql4);
                         }
 
@@ -165,10 +199,17 @@
         </div>
     </div>
 
-    <script src="js/jquery.min.js"></script>
+    <!-- <script src="js/jquery.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!-- <script src="js/popper.js"></script> -->
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <!-- <script src="js/main.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script>
+        
     $(document).ready(function() {
         $("#CreateTable").click(function() {
             var nbCol = $("#nbColonnes").val();
@@ -214,9 +255,7 @@
         })
     });
     </script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+    
 
 </body>
 
