@@ -15,8 +15,8 @@ include "Connection.php";
                     <option value="REAL">REAL</option>
                     <option value="DECIMAL">DECIMAL</option>
                 </select></td>
-                <td><input type="number" class="form-control" placeholder="Longueur" min="0" name="longueur[]" id ="longueur" required></td>
-                <td><input type="number" class="form-control" placeholder="0 si non 1 si oui" min = "0" max="1" name="primary[]"  required></td>
+                <td><input type="number" class="form-control" placeholder="Longueur" min="0" name="longueur[]" id ="longueur" value="0" required></td>
+                <td><input type="number" class="form-control" placeholder="0 si non 1 si oui" min = "0" max="1" name="primary[]" value="0" required></td>
             </tr>';
             }
             echo '                <tr>
@@ -43,6 +43,8 @@ include "Connection.php";
         $cnx->query($sql);
         $sql2 = "delete from dbs where Name = '".$_GET['db']."'";
         $cnx->query($sql2);
+        // header("location: /PFM1/index.php");
+        // exit;
     }
     if(isset($_GET['tableinfos'])){
         $info = explode("-", $_GET['tableinfos']);
