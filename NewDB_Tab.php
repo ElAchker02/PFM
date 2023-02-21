@@ -163,7 +163,8 @@
                             }
                         }
                         // echo $sql1;
-                        $cnxS->query($sql1);
+                        if($found == true){
+                            $cnxS->query($sql1);
                         
                         
                         $sql2 = "INSERT INTO `tables`(`tableName`, `DB`) VALUES ('$table','$DBs')";
@@ -187,6 +188,11 @@
                             }
                         $cnx->query($sql4);
                         }
+                        }
+                        else{
+                            echo "<script>alert('Le tableau doit contenir un cle primaire')</script>";
+                        }
+                        
 
                            
                    

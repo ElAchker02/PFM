@@ -1,5 +1,6 @@
 <?php
 			include "Connection.php";
+            include "Classes/GestionTables.php";
 
 ?>
 <!doctype html>
@@ -186,6 +187,8 @@
                         $results =  $cnx->query($sql);
                         $i = 0;
                         $primaryIndex =-1;
+                        $primaryKeyName ;
+                        $primaryKeyType ;
                         $columns =array();
                         $columnsNamee = array();
                         $k =0;
@@ -193,6 +196,8 @@
                             
                             if($row[3] == 1){
                                 $primaryIndex = $i;
+                                $primaryKeyName = $row[0];
+                                $primaryKeyType = $row[1];
                             }
                             $columns[$row[0]] = $row[1];
                             $columnsNamee[$k] = $row[0];
@@ -221,7 +226,12 @@
                             <td><a href="Modifier.php<?php if($primaryIndex != -1) 
                             {echo "?cle=".$row[$primaryIndex]; 
                             echo "&idTable=".$_GET['id']."&db=".$_GET['db'] ; } 
-                            ?>" class="btn btn-success" id="Modifier" target="_blank">Modifier</a></td>
+                            ?>" class="btn btn-success" id="Modifier" target="_blank">Modifier</a>
+
+                            <a href="Delete.php <?php if($primaryIndex != -1) 
+                            {echo "?cle=".$row[$primaryIndex]; 
+                            echo "&idTable=".$_GET['id']."&tableName=".$tableName."&db=".$_GET['db']."&primaryName=".$primaryKeyName."&primaryType=".$primaryKeyType ; } 
+                            ?>" class="btn btn-danger" id="Supprimer" target="_blank" >Supprimer</a></td>
                     </tr>
 
                     <?php } ?>
@@ -230,36 +240,8 @@
             <?php }  ?>
             <?php 
                 if(isset($_POST['btnSub'])){
-                    $cnxS = new mysqli("localhost","root","",$_GET['db']);
-                    $sql = "INSERT INTO $tableName VALUES(";
-                    for ($i=0; $i < count($columnsNamee); $i++) { 
-                        if($columns[$columnsNamee[$i]] == "VARCHAR" || $columns[$columnsNamee[$i]] == "TEXT" ||  $columns[$columnsNamee[$i]] == "DATE"){
-                            if($i == 0){
-                                $sql .= "'".$_POST[$columnsNamee[$i]]."'";
-                            }  
-                            else{
-                                $sql .= ",'".$_POST[$columnsNamee[$i]]."'";
-                            } 
-                            
-                        }
-                       else{
-                            if($i == 0){
-                                $sql .= $_POST[$columnsNamee[$i]];
-                            }  
-                            else{
-                                $sql .= ",".$_POST[$columnsNamee[$i]];
-                            } 
-                            
-                        }
-                    }
-                        $sql .= ")";
-                        $results =  $cnxS->query($sql);
-                        if(!$results){
-                            echo 'il ya un probleme';
-                        }
-                        else{
-                            echo 'il ya pas un probleme';
-                        }
+                    $G1 = new GestionTables();
+                    $G1->Ajouter($_GET['db'],$tableName,$columnsNamee,$columns);
                 }
             ?>
 
