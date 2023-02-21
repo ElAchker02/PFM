@@ -23,7 +23,6 @@ include "Connection.php";
             <td><input type="submit" value="Creer colonnes" name="btnsubmit"  class="btn btn-primary"></td>
         </tr>';
         }
-        // <td><input type="number" class="form-control" placeholder="0 si non 1 si oui" min = "0" max="1" name="foreign[]"  required></td>
         
 
     }
@@ -43,8 +42,7 @@ include "Connection.php";
         $cnx->query($sql);
         $sql2 = "delete from dbs where Name = '".$_GET['db']."'";
         $cnx->query($sql2);
-        // header("location: /PFM1/index.php");
-        // exit;
+
     }
     if(isset($_GET['tableinfos'])){
         $info = explode("-", $_GET['tableinfos']);
