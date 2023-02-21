@@ -165,29 +165,37 @@
                         // echo $sql1;
                         if($found == true){
                             $cnxS->query($sql1);
-                        
-                        
-                        $sql2 = "INSERT INTO `tables`(`tableName`, `DB`) VALUES ('$table','$DBs')";
-                        $cnx->query($sql2);
-                        
-                        $sql3 = "SELECT id FROM `tables` ORDER by id asc";
-                        $results =  $cnx->query($sql3);
-                        $id ;
-                        while($row = $results->fetch_assoc()){
-                            $id = $row['id'];
-                        }
-                        $found2 =false;
-                        for ($i=0; $i < count($colonne); $i++) { 
-                            if($primary[$i] == 1 && $found2 == false){
-                                $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",".$primary[$i]." ,0".",".$id.")";
-                                $found2 = true;
+
+                            $sql0 = "SELECT COUNT(*) as nb FROM `tables` WHERE tableName = '".$table."'";
+                            $results0 =  $cnx->query($sql0);
+                            $nb = $results0->fetch_row();
+                            if($nb[0] == 0){
+                                $sql2 = "INSERT INTO `tables`(`tableName`, `DB`) VALUES ('$table','$DBs')";
+                                $cnx->query($sql2);
+                                
+                                $sql3 = "SELECT id FROM `tables` ORDER by id asc";
+                                $results =  $cnx->query($sql3);
+                                $id ;
+                                while($row = $results->fetch_assoc()){
+                                    $id = $row['id'];
+                                }
+                                $found2 =false;
+                                for ($i=0; $i < count($colonne); $i++) { 
+                                    if($primary[$i] == 1 && $found2 == false){
+                                        $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",".$primary[$i]." ,0".",".$id.")";
+                                        $found2 = true;
+                                    }
+                                    else{
+                                        $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",0,0".",".$id.")";
+    
+                                    }
+                                $cnx->query($sql4);
+                                }
                             }
                             else{
-                                $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",0,0".",".$id.")";
-
+                                echo "<script>alert('Le tableau avec le nom ".$table." existe deja.')</script>";
                             }
-                        $cnx->query($sql4);
-                        }
+                            
                         }
                         else{
                             echo "<script>alert('Le tableau doit contenir un cle primaire')</script>";

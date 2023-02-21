@@ -1,7 +1,6 @@
 <?php
 			include "Connection.php";
             include "Classes/GestionTables.php";
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -107,33 +106,7 @@
                             </div>
                             <div class="modal-body">
                                 <table>
-                                <?php
-				                    $sql5 = "SELECT * FROM `columns` WHERE idTable =". $_GET['id'];
-                                    $results5 =  $cnx->query($sql5);
-                                    while($row = $results5->fetch_row()){?>
-                                    <tr>
-                                            <?php 
-                                             if($row[1] == "VARCHAR" || $row[1] == "TEXT"){?>
-                                             <td><label for="<?php echo $row[0];?>"><?php echo $row[0];?></label></td>
-                                             <td><input type="text" name="<?php echo $row[0];?>" id="<?php echo $row[0];?>" class="form-control" required></td>   
-                                            <?php } 
-                                            elseif($row[1] == "DATE"){ ?>
-                                            <td><label for="<?php echo $row[0];?>"><?php echo $row[0];?></label></td>
-                                            <td><input type="date" name="<?php echo $row[0];?>" id="<?php echo $row[0];?>" class="form-control"required></td>
-                                            <?php } 
-                                            elseif ($row[1] == "INT" ){?>
-                                           <td> <label for="<?php echo $row[0];?>"><?php echo $row[0];?></label></td>
-                                           <td><input type="number" name="<?php echo $row[0];?>" id="<?php echo $row[0];?>" class="form-control" required ></td>
-                                            <?php }
-                                            elseif ( $row[1] == "FLOAT" || $row[1] == "DOUBLE" || $row[1] == "DECIMAL"){?>
-                                            <td> <label for="<?php echo $row[0];?>"><?php echo $row[0];?></label></td>
-                                            <td><input type="text" name="<?php echo $row[0];?>" id="<?php echo $row[0];?>" class="form-control" pattern = "[+-]?([0-9]*[.])?[0-9]+" required></td>
-                                                
-                                            
-                                        <?php } ?> </tr> <?php } ?>
-
-                                    
-                                    
+                                <?php GestionTables::CreateForms($_GET['id']);?>
                                     </table>
                                 
                             </div>
@@ -215,7 +188,8 @@
                         $cnxS = new mysqli("localhost","root","",$_GET['db']);
                         $sql = "SELECT * FROM $tableName";
                         $results =  $cnxS->query($sql);
-                        
+                        if($results){
+                            
                         while($row = $results->fetch_row()){?>
                     <tr>
                         <?php 
@@ -225,7 +199,7 @@
                             ?>
                             <td><a href="Modifier.php<?php if($primaryIndex != -1) 
                             {echo "?cle=".$row[$primaryIndex]; 
-                            echo "&idTable=".$_GET['id']."&db=".$_GET['db'] ; } 
+                                echo "&idTable=".$_GET['id']."&tableName=".$tableName."&db=".$_GET['db']."&primaryName=".$primaryKeyName."&primaryType=".$primaryKeyType ;  } 
                             ?>" class="btn btn-success" id="Modifier" target="_blank">Modifier</a>
 
                             <a href="Delete.php <?php if($primaryIndex != -1) 
@@ -234,7 +208,7 @@
                             ?>" class="btn btn-danger" id="Supprimer" target="_blank" >Supprimer</a></td>
                     </tr>
 
-                    <?php } ?>
+                    <?php } }?>
                 </tbody>
             </table>
             <?php }  ?>
