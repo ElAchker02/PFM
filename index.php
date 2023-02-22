@@ -34,19 +34,7 @@
                     <li>
                         <a href="NewDB_Tab.php">Nouveau base de données & Nouveau tableau</a>
                     </li>
-                    <?php
-					$sql = "SELECT * FROM `dbs`";
-					$results =  $cnx->query($sql);
-					while($row = $results->fetch_assoc()){
-						$results2 = $cnx->query("SELECT * FROM `tables` WHERE DB = '".$row['Name']."'");
-						echo '<li ><a href="#'.$row['Name'].'" id ="'.$row['Name'].'" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">'.$row['Name'].'</a>
-						<ul class="collapse list-unstyled" id="'.$row['Name'].'">';
-						while($row2 = $results2->fetch_assoc()){
-							echo '<li><a href="index.php?db='.$row['Name'].'&id='.$row2['id'].'">'.$row2['tableName'].'</a></li>';
-						}
-						echo '</ul></li>';
-					}
-				?>
+                    <?php GestionTables::SideBarButtons();?>
 
                 </ul>
 
@@ -131,23 +119,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-
-				$sql = "SELECT * FROM `columns` WHERE idTable =". $_GET['id'];
-				$results =  $cnx->query($sql);
-				while($row = $results->fetch_assoc()){
-					?>
-                    <tr>
-                        <td><?php echo $row['Name'] ?></td>
-                        <td><?php echo ($row['primaryKey'] == 1 ?"Clé primaire" : "Non") ?></td>
-                        <td><?php echo $row['Type'] ?></td>
-                        <td><?php echo $row['size'] ?></td>
-                        <td><?php echo ($row['foreignKey'] == 1 ? "Clé étrangère" : "Non")?></td>
-                    </tr>
-                    <?php
-
-			}
-	  ?>
+                  <?php GestionTables::LoadColumn($_GET['id']);?>
+	  
                 </tbody>
             </table>
             <h4>Enregistrement</h4>
@@ -214,8 +187,7 @@
             <?php }  ?>
             <?php 
                 if(isset($_POST['btnSub'])){
-                    $G1 = new GestionTables();
-                    $G1->Ajouter($_GET['db'],$tableName,$columnsNamee,$columns);
+                    GestionTables::Ajouter($_GET['db'],$tableName,$columnsNamee,$columns);
                 }
             ?>
 

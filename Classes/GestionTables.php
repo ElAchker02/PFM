@@ -1,6 +1,6 @@
 <?php
 class GestionTables{
-    public function Ajouter($db,$tableName,$columnsNamee,$columns){
+    public  static function Ajouter($db,$tableName,$columnsNamee,$columns){
         $cnxS = new mysqli("localhost","root","",$db);
         $sql = "INSERT INTO $tableName VALUES(";
         for ($i=0; $i < count($columnsNamee); $i++) { 
@@ -32,7 +32,7 @@ class GestionTables{
                 echo 'il ya pas un probleme';
             }
     }
-    public function Supprimer($db,$tableName,$cle,$primaryKeyName,$primaryKeyType){
+    public static function Supprimer($db,$tableName,$cle,$primaryKeyName,$primaryKeyType){
         $cnxS = new mysqli("localhost","root","",$db);
         $sql = "DELETE from $tableName where $primaryKeyName =".($primaryKeyType == "VARCHAR" || $primaryKeyType == "DATE" || $primaryKeyType == "TEXT" ? "'". $cle ."'":$cle);
         $results =  $cnxS->query($sql);
@@ -85,5 +85,145 @@ class GestionTables{
                                             
                                         <?php } ?> </tr> <?php } ?>
    <?php }
+   public static function SideBarButtons(){
+    include "Connection.php";
+    $sql = "SELECT * FROM `dbs`";
+					$results =  $cnx->query($sql);
+					while($row = $results->fetch_assoc()){
+						$results2 = $cnx->query("SELECT * FROM `tables` WHERE DB = '".$row['Name']."'");
+						echo '<li ><a href="#'.$row['Name'].'" id ="'.$row['Name'].'" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">'.$row['Name'].'</a>
+						<ul class="collapse list-unstyled" id="'.$row['Name'].'">';
+						while($row2 = $results2->fetch_assoc()){
+							echo '<li><a href="index.php?db='.$row['Name'].'&id='.$row2['id'].'">'.$row2['tableName'].'</a></li>';
+						}
+						echo '</ul></li>';
+					}
+   }
+   public static function LoadColumn($idTable){
+        include "Connection.php";
+        $sql = "SELECT * FROM `columns` WHERE idTable =". $idTable;
+        $results =  $cnx->query($sql);
+        while($row = $results->fetch_assoc()){
+            ?>
+            <tr>
+                <td><?php echo $row['Name'] ?></td>
+                <td><?php echo ($row['primaryKey'] == 1 ?"Clé primaire" : "Non") ?></td>
+                <td><?php echo $row['Type'] ?></td>
+                <td><?php echo $row['size'] ?></td>
+                <td><?php echo ($row['foreignKey'] == 1 ? "Clé étrangère" : "Non")?></td>
+            </tr>
+            <?php
+
+        }?>
+   <?php }   
+   public static function CreateTable($DBs,$table,$colonne,$types,$longueur,$primary){
+    include "Connection.php";
+    $cnxS = new mysqli("localhost","root","",$DBs);
+    $sql1 = "create table $table ( ";
+    $found = false;
+    for ($i=0; $i < count($colonne); $i++) { 
+        if($i != count($colonne) - 1){
+        $sql1 .= $colonne[$i]." ".($types[$i] != "VARCHAR" ? $types[$i] : $types[$i] ." (".$longueur[$i] . ")") ;
+        if($primary[$i] == 0 ){
+            $sql1 .= "";
+        }
+        elseif($primary[$i] == 1 && $found == false){
+            $sql1 .= " primary key ";
+            $found = true;
+        }
+        elseif($primary[$i] == 1 && $found == true)
+        {
+            $sql1 .= "";
+        }
+        $sql1 .= ",";
+        }
+        else{
+        $sql1 .= $colonne[$i]." ".($types[$i] != "VARCHAR" ? $types[$i] : $types[$i] ." (".$longueur[$i] . ")") ;
+        if($primary[$i] == 0 ){
+            $sql1 .= "";
+        }
+        elseif($primary[$i] == 1 && $found == false){
+            $sql1 .= " primary key ";
+            $found = true;
+        }
+        elseif($primary[$i] == 1 && $found == true)
+        {
+            $sql1 .= "";
+        }
+         $sql1 .=")ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        }
+    }
+    if($found == true){
+        $res = $cnxS->query($sql1);
+        if($res){
+           
+                $sql2 = "INSERT INTO `tables`(`tableName`, `DB`) VALUES ('$table','$DBs')";
+                $cnx->query($sql2);
+                
+                $sql3 = "SELECT id FROM `tables` ORDER by id asc";
+                $results =  $cnx->query($sql3);
+                $id ;
+                while($row = $results->fetch_assoc()){
+                    $id = $row['id'];
+                }
+                $found2 =false;
+                for ($i=0; $i < count($colonne); $i++) {   
+                    if($primary[$i] == 1 && $found2 == false){
+                        $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",".$primary[$i]." ,0".",".$id.")";
+                        $found2 = true;
+                    }
+                    else{
+                        $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",0,0".",".$id.")";
+    
+                    }
+                $cnx->query($sql4);
+                }  
+        }
+        else{
+            echo "<script>alert('Vous nous pouvez pas creer ce table verifier que le nom que tu as entré  existe deja')</script>";
+        }
+        
+    }
+    else{
+        echo "<script>alert('Le tableau doit contenir un cle primaire')</script>";
+    }
+    
+
+       
+   } 
+
+   public static function CreateDatabase($db){
+    include "Connection.php";
+    $sql2 = "create database ".$db;
+        $res = $cnx->query($sql2);
+        if($res){
+            $sql1 = "INSERT INTO `dbs`(`Name`) VALUES ('".$db."')";
+            $cnx->query($sql1);
+            $sql = "SELECT * FROM `dbs`";
+                                $results =  $cnx->query($sql);
+                                while($row = $results->fetch_assoc()){
+                                    echo "<option value='". $row['Name']."'>".$row['Name']."</option>";
+                                }
+        }
+        
+   }
+   public static function DropDataBase($db){
+    include "Connection.php";
+    $sql = "drop database ".$db;
+        $cnx->query($sql);
+        $sql2 = "delete from dbs where Name = '".$db."'";
+        $cnx->query($sql2);
+   }
+   public static function DropTable($tableinfos){
+    include "Connection.php";
+    $info = explode("-", $tableinfos);
+    $sql = "drop table ".$info[1];
+    $result = $cnxS->query($sql);
+    if($result){
+        $cnxS = new mysqli("localhost","root","",$info[2]);
+        $sql2 = "delete from tables where id = ".$info[0];
+        $cnx->query($sql2);
+    }
+   }
 }
 ?>

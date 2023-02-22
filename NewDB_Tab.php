@@ -1,5 +1,6 @@
 <?php
 			include "Connection.php";
+            include "Classes/GestionTables.php";
 
 ?>
 <!doctype html>
@@ -35,17 +36,7 @@
                         <a href="NewDB_Tab.php">Nouveau base de données & Nouveau tableau</a>
                     </li>
                     <?php
-					$sql = "SELECT * FROM `dbs`";
-					$results =  $cnx->query($sql);
-					while($row = $results->fetch_assoc()){
-						$results2 = $cnx->query("SELECT * FROM `tables` WHERE DB = '".$row['Name']."'");
-						echo '<li ><a href="#'.$row['Name'].'" id ="'.$row['Name'].'" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">'.$row['Name'].'</a>
-						<ul class="collapse list-unstyled" id="'.$row['Name'].'">';
-						while($row2 = $results2->fetch_assoc()){
-							echo '<li><a href="index.php?db='.$row['Name'].'&id='.$row2['id'].'">'.$row2['tableName'].'</a></li>';
-						}
-						echo '</ul></li>';
-					}
+					GestionTables::SideBarButtons();
 				?>
 
                 </ul>
@@ -80,8 +71,8 @@
                 Base de donnée : <select name="DBs" id="DBs">
                     <?php
 							$sql = "SELECT * FROM `dbs`";
-							$results =  $cnx->query($sql);
-							while($row = $results->fetch_assoc()){
+							$results =  $cnx->query($sql); ?>
+							<?php while($row = $results->fetch_assoc()){
 								?>
 
                     <option value="<?php echo $row['Name']?>"><?php echo $row['Name']?></option>
@@ -124,82 +115,7 @@
                         $longueur = $_POST['longueur'];
                         $primary = $_POST['primary'];
 
-                        $cnxS = new mysqli("localhost","root","",$DBs);
-
-                        $sql1 = "create table $table ( ";
-                        $found = false;
-                        for ($i=0; $i < count($colonne); $i++) { 
-                            if($i != count($colonne) - 1){
-                            $sql1 .= $colonne[$i]." ".($types[$i] != "VARCHAR" ? $types[$i] : $types[$i] ." (".$longueur[$i] . ")") ;
-                            if($primary[$i] == 0 ){
-                                $sql1 .= "";
-                            }
-                            elseif($primary[$i] == 1 && $found == false){
-                                $sql1 .= " primary key ";
-                                $found = true;
-                            }
-                            elseif($primary[$i] == 1 && $found == true)
-                            {
-                                $sql1 .= "";
-                            }
-                            $sql1 .= ",";
-                            }
-                            else{
-                            $sql1 .= $colonne[$i]." ".($types[$i] != "VARCHAR" ? $types[$i] : $types[$i] ." (".$longueur[$i] . ")") ;
-                            if($primary[$i] == 0 ){
-                                $sql1 .= "";
-                            }
-                            elseif($primary[$i] == 1 && $found == false){
-                                $sql1 .= " primary key ";
-                                $found = true;
-                            }
-                            elseif($primary[$i] == 1 && $found == true)
-                            {
-                                $sql1 .= "";
-                            }
-                             $sql1 .=")ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-                            }
-                        }
-                        if($found == true){
-                            $cnxS->query($sql1);
-
-                            $sql0 = "SELECT COUNT(*) as nb FROM `tables` WHERE tableName = '".$table."'";
-                            $results0 =  $cnx->query($sql0);
-                            $nb = $results0->fetch_row();
-                            if($nb[0] == 0){
-                                $sql2 = "INSERT INTO `tables`(`tableName`, `DB`) VALUES ('$table','$DBs')";
-                                $cnx->query($sql2);
-                                
-                                $sql3 = "SELECT id FROM `tables` ORDER by id asc";
-                                $results =  $cnx->query($sql3);
-                                $id ;
-                                while($row = $results->fetch_assoc()){
-                                    $id = $row['id'];
-                                }
-                                $found2 =false;
-                                for ($i=0; $i < count($colonne); $i++) { 
-                                    if($primary[$i] == 1 && $found2 == false){
-                                        $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",".$primary[$i]." ,0".",".$id.")";
-                                        $found2 = true;
-                                    }
-                                    else{
-                                        $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",0,0".",".$id.")";
-    
-                                    }
-                                $cnx->query($sql4);
-                                }
-                            }
-                            else{
-                                echo "<script>alert('Le tableau avec le nom ".$table." existe deja.')</script>";
-                            }
-                            
-                        }
-                        else{
-                            echo "<script>alert('Le tableau doit contenir un cle primaire')</script>";
-                        }
-                        
-
-                           
+                        GestionTables::CreateTable($DBs,$table,$colonne,$types,$longueur,$primary);
                    
                        
                     }

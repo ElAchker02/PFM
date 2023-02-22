@@ -1,5 +1,6 @@
 <?php
 include "Connection.php";
+include "Classes/GestionTables.php";
     if(isset($_GET['infos'])){
         if( $_GET['infos'] != 0){
             for ($i=0; $i < $_GET['infos']; $i++) { 
@@ -27,30 +28,13 @@ include "Connection.php";
 
     }
     if(isset($_GET['nomDb'])){
-        $sql2 = "create database ".$_GET['nomDb'];
-        $cnx->query($sql2);
-        $sql1 = "INSERT INTO `dbs`(`Name`) VALUES ('".$_GET['nomDb']."')";
-        $cnx->query($sql1);
-        $sql = "SELECT * FROM `dbs`";
-							$results =  $cnx->query($sql);
-							while($row = $results->fetch_assoc()){
-                                echo "<option value='". $row['Name']."'>".$row['Name']."</option>";
-                            }
+        GestionTables::CreateDatabase($_GET['nomDb']);
     }
     if(isset($_GET['db'])){
-        $sql = "drop database ".$_GET['db'];
-        $cnx->query($sql);
-        $sql2 = "delete from dbs where Name = '".$_GET['db']."'";
-        $cnx->query($sql2);
-
+        GestionTables::DropDataBase($_GET['db']);
     }
     if(isset($_GET['tableinfos'])){
-        $info = explode("-", $_GET['tableinfos']);
-        $sql = "drop table ".$info[1];
-        $cnxS = new mysqli("localhost","root","",$info[2]);
-        $cnxS->query($sql);
-        $sql2 = "delete from tables where id = ".$info[0];
-        $cnx->query($sql2);
+        GestionTables::DropTable($_GET['tableinfos']);
     }
     if(isset($_GET['selectedDb'])){
         $sql = "SELECT `id`, `tableName` FROM `tables` WHERE DB = '".$_GET['selectedDb']."'";
