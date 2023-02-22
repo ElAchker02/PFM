@@ -49,7 +49,7 @@ while ($row = $results->fetch_row()) {
     echo ' </script>';
     if(isset($_POST['btnsub'])){
         GestionTables::Modifier($_GET['tableName'],$i,$cols,$colsType,$_GET['primaryName'],$_GET['primaryType'],$_GET['cle'],$cnxS);
-        header("location: /PFM1/index.php?db=".$_GET['db']."&id=".$_GET['idTable']);
+        header("location:index.php?db=".$_GET['db']."&id=".$_GET['idTable']);
         exit;
     }
     ?>
