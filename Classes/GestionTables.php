@@ -59,7 +59,27 @@ class GestionTables{
             echo "<script>alert('Modification pas faite')</script>";
         }  
     }
-    public static function CreateForms($idTable){
+    public static  function LoadforeignSelect($primaryKeyName_IdTab,$db,$col){
+        include "Connection.php";
+        $infos = explode("-",$primaryKeyName_IdTab);
+        $sql5 = "SELECT tableName FROM `tables` WHERE id =". $infos[0];
+        $results5 =  $cnx->query($sql5);
+        $tableName;
+        while($row = $results5->fetch_assoc()){
+            $tableName = $row['tableName'];
+        }
+        $cnxS = new mysqli("localhost","root","",$db);
+        $sql6 = "SELECT $infos[1] FROM $tableName";
+        $results6 =  $cnxS->query($sql6);
+        echo "<select name=".$col." class='form-control'>";
+        while($row = $results6->fetch_row()){
+            echo "<option value='".$row[0]."' >".$row[0]."</option>";
+        }
+        echo "</select>";
+        // echo $sql6;
+
+    }
+    public static function CreateForms($idTable,$db){
     include "Connection.php";
         $sql5 = "SELECT * FROM `columns` WHERE idTable =". $idTable;
                                     $results5 =  $cnx->query($sql5);
@@ -67,20 +87,35 @@ class GestionTables{
                                     <tr>
                                             <?php 
                                              if($row[1] == "VARCHAR" || $row[1] == "TEXT"){?>
-                                             <td><label for="<?php echo $row[0];?>"><?php echo $row[0];?></label></td>
-                                             <td><input type="text" name="<?php echo $row[0];?>" id="<?php echo $row[0];?>" class="form-control" required></td>   
-                                            <?php } 
+                                                <td><label for="<?php echo $row[0];?>"><?php echo $row[0];?></label></td>
+                                                <?php if($row[5] == 'rien'){?>
+                                                    <td><input type="text" name="<?php echo $row[0];?>" id="<?php echo $row[0];?>" class="form-control" required></td>   
+                                             <?php } 
+                                             else { ?> <td><?php  self::LoadforeignSelect($row[5],$db,$row[0]); }?></td> <br>
+
+                                            <?php }
                                             elseif($row[1] == "DATE"){ ?>
                                             <td><label for="<?php echo $row[0];?>"><?php echo $row[0];?></label></td>
+                                            <?php if($row[5] == 'rien'){?>
                                             <td><input type="date" name="<?php echo $row[0];?>" id="<?php echo $row[0];?>" class="form-control"required></td>
+                                            <?php } else {?> <td><?php  self::LoadforeignSelect($row[5],$db,$row[0]); }?></td> <br>
                                             <?php } 
+
                                             elseif ($row[1] == "INT" ){?>
-                                           <td> <label for="<?php echo $row[0];?>"><?php echo $row[0];?></label></td>
+                                                <td> <label for="<?php echo $row[0];?>"><?php echo $row[0];?></label></td>
+                                                <?php if($row[5] == 'rien'){?>
+                                           
                                            <td><input type="number" name="<?php echo $row[0];?>" id="<?php echo $row[0];?>" class="form-control" required ></td>
-                                            <?php }
+                                           <?php } 
+                                           else { ?> <td><?php self::LoadforeignSelect($row[5],$db,$row[0]); }?></td> <br>
+                                            
+                                            <?php 
+                                            }
                                             elseif ( $row[1] == "FLOAT" || $row[1] == "DOUBLE" || $row[1] == "DECIMAL"){?>
                                             <td> <label for="<?php echo $row[0];?>"><?php echo $row[0];?></label></td>
+                                            <?php if($row[5] == 'rien'){?>
                                             <td><input type="text" name="<?php echo $row[0];?>" id="<?php echo $row[0];?>" class="form-control" pattern = "[+-]?([0-9]*[.])?[0-9]+" required></td>
+                                            <?php } else {?><td><?php  self::LoadforeignSelect($row[5],$db,$row[0]); }?></td> <br>
                                                 
                                             
                                         <?php } ?> </tr> <?php } ?>
@@ -169,11 +204,11 @@ class GestionTables{
                 $found2 =false;
                 for ($i=0; $i < count($colonne); $i++) {   
                     if($primary[$i] == 1 && $found2 == false){
-                        $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",".$primary[$i]." ,0".",".$id.")";
+                        $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`,`primaryTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",".$primary[$i]." ,0".",".$id.",'rien')";
                         $found2 = true;
                     }
                     else{
-                        $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",0,0".",".$id.")";
+                        $sql4 = "INSERT INTO `columns`(`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`,`primaryTable`) VALUES ('".$colonne[$i]."','".$types[$i]."',".$longueur[$i].",0,0".",".$id.",'rien')";
     
                     }
                 $cnx->query($sql4);
@@ -218,9 +253,9 @@ class GestionTables{
     include "Connection.php";
     $info = explode("-", $tableinfos);
     $sql = "drop table ".$info[1];
+    $cnxS = new mysqli("localhost","root","",$info[2]);
     $result = $cnxS->query($sql);
     if($result){
-        $cnxS = new mysqli("localhost","root","",$info[2]);
         $sql2 = "delete from tables where id = ".$info[0];
         $cnx->query($sql2);
     }

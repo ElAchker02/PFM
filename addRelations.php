@@ -126,6 +126,8 @@
                 $cnxS->query($sql2);
                 $sql3 = "update columns set foreignKey = 1 where Name = '".$col1."' and idTable =". $_GET['id'];
                 $cnx->query($sql3);
+                $sql4 = "update columns set primaryTable = '$tablePere-$col2' where Name = '".$col1."' and idTable =". $_GET['id'];
+                $cnx->query($sql4);
 
             }   
                 

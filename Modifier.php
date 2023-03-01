@@ -31,7 +31,7 @@ while ($row = $results->fetch_row()) {
         <h1><?php echo "Modifier le table ".$_GET['tableName'];?></h1>
         <form action="" method="post">
             <?php
-    GestionTables::CreateForms($_GET['idTable']); ?>
+    GestionTables::CreateForms($_GET['idTable'],$_GET['db']); ?>
     <input type="submit" value="Modifier" name="btnsub" class="btn btn-primary mt-2">
     <?php
     $cnxS = new mysqli("localhost","root","",$_GET['db']);
