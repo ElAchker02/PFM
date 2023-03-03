@@ -44,7 +44,7 @@
         </nav>
 
         <!-- Page Content  -->
-        <div id="content"  style="background-color: #eee;" class="p-4 p-md-5 pt-5">
+        <div id="content"   style="background-color: #eee;" class="p-4 p-md-5 pt-5">
             <?php if(isset($_GET['id'])){
                 $sql1 = "SELECT tableName FROM `tables` where id =". $_GET['id'];
                 $results = $cnx->query($sql1);
