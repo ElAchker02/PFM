@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 22, 2023 at 06:44 PM
+-- Generation Time: Mar 03, 2023 at 01:46 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.4.9
 
@@ -34,19 +34,10 @@ CREATE TABLE IF NOT EXISTS `columns` (
   `size` int(11) NOT NULL,
   `primaryKey` tinyint(1) NOT NULL,
   `foreignKey` tinyint(1) NOT NULL,
+  `primaryTable` varchar(100) NOT NULL,
   `idTable` int(11) NOT NULL,
   KEY `fkCols_Table` (`idTable`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `columns`
---
-
-INSERT INTO `columns` (`Name`, `Type`, `size`, `primaryKey`, `foreignKey`, `idTable`) VALUES
-('col1', 'VARCHAR', 6, 1, 0, 50),
-('id', 'INT', 0, 0, 0, 50),
-('dfsq', 'VARCHAR', 2, 1, 0, 51),
-('dsfqs', 'VARCHAR', 1, 0, 0, 51);
 
 -- --------------------------------------------------------
 
@@ -59,13 +50,6 @@ CREATE TABLE IF NOT EXISTS `dbs` (
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY (`Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `dbs`
---
-
-INSERT INTO `dbs` (`Name`) VALUES
-('TESTO');
 
 -- --------------------------------------------------------
 
@@ -80,15 +64,7 @@ CREATE TABLE IF NOT EXISTS `tables` (
   `DB` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fkDb_Table` (`DB`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `tables`
---
-
-INSERT INTO `tables` (`id`, `tableName`, `DB`) VALUES
-(50, 'tab3', 'TESTO'),
-(51, 'tab33', 'TESTO');
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
 --
 -- Constraints for dumped tables
