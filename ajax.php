@@ -3,6 +3,18 @@ include "Connection.php";
 include "Classes/GestionTables.php";
     if(isset($_GET['infos'])){
         if( $_GET['infos'] != 0){
+            echo '   <table class="table table-sm mt-4">
+            <thead>
+                <tr>
+                    <td>Nom du colonne</td>
+                    <td>Type</td>
+                    <td>Longueur</td>
+                    <td>Clé primaire</td>
+
+                </tr>
+            </thead>
+            <tbody >
+';
             for ($i=0; $i < $_GET['infos']; $i++) { 
                 echo '<tr>
                 <td><input type="text" class="form-control" placeholder="Colonne" name="colonne[]"  required></td>
@@ -22,7 +34,8 @@ include "Classes/GestionTables.php";
             }
             echo '                <tr>
             <td><input type="submit" value="Creer colonnes" name="btnsubmit"  class="btn btn-primary"></td>
-        </tr>';
+        </tr>
+        </tbody></table>';
         }
         
 

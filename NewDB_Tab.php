@@ -7,10 +7,10 @@
 <html lang="en">
 
 <head>
-    <title>Sidebar 02</title>
+    <title>BD</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="shortcut icon" href="img/L2.png">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,13 +19,15 @@
 
 </head>
 
-<body>
+<body style="background-color: #EEEEEE;">
 
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
-           
-            <div class="p-4 pt-5">
-                <h1><a href="index.php" class="logo">PFM</a></h1>
+            <div class="pt-2 pl-2 pr-2 ">
+           <a href="index.php" class="logo"><img src="img/L1.png" class="ml-0 w-100 " alt="Logo"></a>
+            </div>
+            <div class="pl-4 pr-4">
+    
                 <ul class="list-unstyled components mb-5">
                     <li>
                         <a href="NewDB_Tab.php">Nouveau base de données & Nouveau tableau</a>
@@ -44,26 +46,38 @@
                 </div>
 
             </div>
+
         </nav>
-
-        <!-- Page Content  -->
-        <div id="content" class="p-4 p-md-5 pt-5">
-
-            
-
-
-
+        <div id="content" class="">
+<!-- <header class="bg-white w-100 pl-4  shadow shadow-sm " >
+ <div >
+<h2>DATABASE MANAGER</h2>
+</div>
+</header> -->
+<div class="p-3   pt-3">
             <form action="" method="post">
-                <h2>Creer une base de données</h2>
-                <div class="row">
+<!-- card1 -->
+<div class="card shadow shadow-sm mt-4">
+  <h5 class="card-header">Creer une base de données</h5>
+  <div class="card-body">
+     <div class="row">
                     <div class="col">
                         <input type="text" class="form-control" placeholder="Base de données" id="dbs">
                     </div>
                     <div class="col">
                         <button class="btn btn-primary mb-2" id="btnDB" type="button">Creer</button>
                     </div>
-                </div>
-                Base de donnée : <select name="DBs" id="DBs">
+                </div> 
+  </div>
+</div>
+<!-- card 2 -->
+
+<div class="card shadow shadow-sm mt-5">
+  <h5 class="card-header">creer table</h5>
+  <div class="card-body">
+ 
+  <select name="DBs" id="DBs" class="form-select" >
+        <option selected disabled >Choisir une base de donnée</option>
                     <?php
 							$sql = "SELECT * FROM `dbs`";
 							$results =  $cnx->query($sql); ?>
@@ -73,8 +87,7 @@
                     <option value="<?php echo $row['Name']?>"><?php echo $row['Name']?></option>
                     <?php } ?>
                 </select>
-                <h2>Creer une table</h2>
-                <div class="row">
+   <div class="row">
                     <div class="col">
                         <input type="text" class="form-control" placeholder="Nom du table" id="nomTable"
                             name="nomTable">
@@ -88,19 +101,7 @@
                     </div>
                 </div>
 
-                <table class="table table-sm mt-4">
-                    <thead>
-                        <tr>
-                            <td>Nom du colonne</td>
-                            <td>Type</td>
-                            <td>Longueur</td>
-                            <td>Clé primaire</td>
-
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-
-                    </tbody>
+        <div id='tableBody'></div>
                     <?php
                     if(isset($_POST['btnsubmit'])){
                         $table = $_POST['nomTable'];
@@ -115,12 +116,15 @@
                        
                     }
                  ?>
-                </table>
+        
                 
-            </form>
+  </div>
+</div>
+</form>
+
         </div>
     </div>
-
+</div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
    
