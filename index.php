@@ -50,7 +50,7 @@
 
     
  <div id="content"   style="background-color: #eee;" >
-    <header class="bg-white w-100 pl-4 pt-1 pb-1 mb-2  shadow shadow-sm " >
+    <header class=" w-100 pl-4 pt-1 pb-1 mb-2  shadow shadow-sm" style="background-color: #212832;" >
  <div >
  <?php if(isset($_GET['id'])){
                 $sql1 = "SELECT tableName FROM `tables` where id =". $_GET['id'];
@@ -59,7 +59,7 @@
                 while($row = $results->fetch_assoc()){
                     $tableName = $row['tableName'];
                 }
-                echo "<h2>Base de données : ".$_GET['db']." >> Table : ".$tableName."</h2>";
+                echo "<h2 style='color:white'>Base de données : ".$_GET['db']." >> Table : ".$tableName."</h2>";
 
                 ?>
 </div>
@@ -73,10 +73,10 @@
                 <input type="hidden" id="tableId" value="<?php echo $_GET['id']."-".$tableName."-".$_GET['db'];?>">
                 <input type="hidden" id="db" value="<?php echo $_GET['db'];?>">
                 <button type="button" class="btn btn-secondary" style="border-left: 1px solid white ; border-right: 1px solid white;" id="deleteDB">Supprimer BD</button>
-                <button type="button" class="btn btn-secondary" id="deleteTab">Supprimer Table</button>
+                <button type="button" class="btn btn-secondary" style="border-left: 1px solid white ; border-right: 1px solid white;" id="deleteTab">Supprimer Table</button>
                 <a href="addRelations.php?db=<?php echo $_GET['db']."&id=". $_GET['id'] ; ?>"
-                        class="btn btn-secondary" target="_blank" id="relations">Créer les relations</a>
-                        <button type="button" class="btn btn-secondary" id="inserer" data-toggle="modal"
+                        class="btn btn-secondary" target="_blank" style="border-left: 1px solid white ; border-right: 1px solid white;" id="relations">Créer les relations</a>
+                        <button type="button" class="btn btn-secondary" style="border-left: 1px solid white ; border-right: 1px solid white;" id="inserer" data-toggle="modal"
                         data-target="#exampleModal">Insérer</button>
             </div>
             </div>
