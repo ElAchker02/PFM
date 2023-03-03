@@ -232,6 +232,11 @@
             );
         })
     })
+
+    var url = window.location.href;
+    var id = url.substring(url.indexOf('=') + 1)
+    var idz = id.substring(0,id.indexOf('&'))
+    document.getElementById(idz).click();
     </script>
 
 </body>
