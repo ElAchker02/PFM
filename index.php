@@ -67,23 +67,18 @@
 <div class="pl-4 pr-4   pt-2">
 
             <div class="row">
+                
+            
+                <div class="btn-group ml-3" role="group" aria-label="Basic example">
                 <input type="hidden" id="tableId" value="<?php echo $_GET['id']."-".$tableName."-".$_GET['db'];?>">
                 <input type="hidden" id="db" value="<?php echo $_GET['db'];?>">
-                <div class="col-sm">
-                    <button type="button" class="btn btn-danger" id="deleteDB">Supprimer BD</button>
-                </div>
-                <div class="col-sm">
-                    <button type="button" class="btn btn-danger" id="deleteTab">Supprimmer  table</button>
-                </div>
-                <div class="col-sm">
-                    <a href="addRelations.php?db=<?php echo $_GET['db']."&id=". $_GET['id'] ; ?>"
-                        class="btn btn-secondary" target="_blank" id="relations">Creer les relation</a>
-
-                </div>
-                <div class="col-sm">
-                    <button type="button" class="btn btn-success" id="inserer" data-toggle="modal"
-                        data-target="#exampleModal">Inserer</button>
-                </div>
+                <button type="button" class="btn btn-secondary" style="border-left: 1px solid white ; border-right: 1px solid white;" id="deleteDB">Supprimer BD</button>
+                <button type="button" class="btn btn-secondary" id="deleteTab">Supprimer Table</button>
+                <a href="addRelations.php?db=<?php echo $_GET['db']."&id=". $_GET['id'] ; ?>"
+                        class="btn btn-secondary" target="_blank" id="relations">Créer les relations</a>
+                        <button type="button" class="btn btn-secondary" id="inserer" data-toggle="modal"
+                        data-target="#exampleModal">Insérer</button>
+            </div>
             </div>
       
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -92,7 +87,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Inserer</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Insérer</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
