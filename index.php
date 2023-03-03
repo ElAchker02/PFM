@@ -6,12 +6,12 @@
 <html lang="en">
 
 <head>
-    <title>Sidebar 02</title>
+    <title>BD</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-
+    <link rel="shortcut icon" href="img/L2.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
@@ -21,15 +21,19 @@
 <body>
 
     <div class="wrapper d-flex align-items-stretch">
-        <nav id="sidebar">
-           
-            <div class="p-4 pt-5">
-                <h1><a href="index.php" class="logo">PFM</a></h1>
+    <nav id="sidebar">
+            <div class="pt-2 pl-2 pr-2 ">
+           <a href="index.php" class="logo"><img src="img/L1.png" class="ml-0 w-100 " alt="Logo"></a>
+            </div>
+            <div class="pl-4 pr-4">
+    
                 <ul class="list-unstyled components mb-5">
                     <li>
                         <a href="NewDB_Tab.php">Nouveau base de données & Nouveau tableau</a>
                     </li>
-                    <?php GestionTables::SideBarButtons();?>
+                    <?php
+					GestionTables::SideBarButtons();
+				?>
 
                 </ul>
 
@@ -41,6 +45,7 @@
                 </div>
 
             </div>
+
         </nav>
 
         <!-- Page Content  -->
