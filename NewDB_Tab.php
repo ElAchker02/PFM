@@ -30,7 +30,7 @@
     
                 <ul class="list-unstyled components mb-5">
                     <li>
-                        <a href="NewDB_Tab.php">Nouveau base de données & Nouveau tableau</a>
+                        <a href="NewDB_Tab.php">Nouveau BD & Table</a>
                     </li>
                     <?php
 					GestionTables::SideBarButtons();
@@ -53,7 +53,7 @@
             <form action="" method="post">
 <!-- card1 -->
 <div class="card shadow shadow-sm mt-4">
-  <h5 class="card-header">Creer une base de données</h5>
+  <h5 class="card-header">Créer une base de donnée</h5>
   <div class="card-body">
      <div class="row">
                     <div class="col">
@@ -68,11 +68,11 @@
 <!-- card 2 -->
 
 <div class="card shadow shadow-sm mt-5">
-  <h5 class="card-header">creer table</h5>
+  <h5 class="card-header">Créer Table</h5>
   <div class="card-body">
- 
+  <div class="input-group mb-3">
+ <label  class="input-group-text">Choisir une base de donnée</label>
   <select name="DBs" id="DBs" class="form-select" >
-        <option selected disabled >Choisir une base de donnée</option>
                     <?php
 							$sql = "SELECT * FROM `dbs`";
 							$results =  $cnx->query($sql); ?>
@@ -82,6 +82,7 @@
                     <option value="<?php echo $row['Name']?>"><?php echo $row['Name']?></option>
                     <?php } ?>
                 </select>
+  </div>
    <div class="row">
                     <div class="col">
                         <input type="text" class="form-control" placeholder="Nom du table" id="nomTable"
