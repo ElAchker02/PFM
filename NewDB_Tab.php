@@ -49,11 +49,6 @@
 
         </nav>
         <div id="content" class="">
-<!-- <header class="bg-white w-100 pl-4  shadow shadow-sm " >
- <div >
-<h2>DATABASE MANAGER</h2>
-</div>
-</header> -->
 <div class="p-3   pt-3">
             <form action="" method="post">
 <!-- card1 -->
