@@ -28,21 +28,22 @@ while ($row = $results->fetch_row()) {
 </head>
 
 <body>
-    <header style="height: 150px;width: 100%; background-color: #00ADB4;display: flex; justify-content: center; align-items: center;">
-            <h1 style="color: white;"><?php echo "Modifier le table ".$_GET['tableName'];?></h1>
-             </header>
+    <header
+        style="height: 150px;width: 100%; background-color: #00ADB4;display: flex; justify-content: center; align-items: center;">
+        <h1 style="color: white;"><?php echo "Modifier le table ".$_GET['tableName'];?></h1>
+    </header>
     <div class="container mt-4 ">
-        
-       
-        
+
+
+
         <form action="" method="post">
             <?php
     GestionTables::CreateForms($_GET['idTable'],$_GET['db']); ?>
-    <div class="d-flex justify-content-center align-items-center mt-2">
-    <input type="submit" value="Modifier" name="btnsub" class="btn btn-primary  ">
-    </div>
-   
-    <?php
+            <div class="d-flex justify-content-center align-items-center mt-2">
+                <input type="submit" value="Modifier" name="btnsub" class="btn btn-primary  ">
+            </div>
+
+            <?php
     $cnxS = new mysqli("localhost","root","",$_GET['db']);
     $sql2 = "SELECT * FROM ".$_GET['tableName'] ." WHERE ".$_GET['primaryName'] ." = ".($_GET['primaryType'] == "VARCHAR" || $_GET['primaryType'] == "DATE" || $_GET['primaryType'] == "TEXT" ? "'". $_GET['cle'] ."'":$_GET['cle']);
     $results2 =  $cnxS->query($sql2);
@@ -64,7 +65,7 @@ while ($row = $results->fetch_row()) {
     ?>
         </form>
     </div>
-  
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"

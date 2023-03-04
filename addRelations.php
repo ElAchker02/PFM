@@ -12,22 +12,24 @@
     <title>Créer les relations</title>
     <link rel="shortcut icon" href="img/L2.png">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-   
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 </head>
 
-<body >
-<header style="height: 150px;width: 100%; background-color: #00ADB4;display: flex; justify-content: center; align-items: center;">
-            <h1 style="color: white;">Créer les relations</h1>
-             </header>
+<body>
+    <header
+        style="height: 150px;width: 100%; background-color: #00ADB4;display: flex; justify-content: center; align-items: center;">
+        <h1 style="color: white;">Créer les relations</h1>
+    </header>
     <div class="container mt-4 ">
-  
+
         <form action="" method="post">
             <table class="table table-sm table-bordered">
-                <tr >
+                <tr>
                     <th>Propriétés du constraint</th>
                     <th>Collonne</th>
                     <th>Base de données</th>
@@ -35,7 +37,8 @@
                     <th>Collonne</th>
                 </tr>
                 <tr>
-                    <td><input type="text" name="ConstName" id="" class="form-control" placeholder="Nom du constraint" required>
+                    <td><input type="text" name="ConstName" id="" class="form-control" placeholder="Nom du constraint"
+                            required>
                         ON DELETE <select name="Delete" id="" required>
                             <option value="" selected></option>
                             <option value="CASCADE">CASCADE</option>
@@ -50,7 +53,7 @@
                         </select></td>
 
                     <td><select name="col1" id="" required>
-                        <option value="" selected disabled></option>
+                            <option value="" selected disabled></option>
                             <?php
                 
                 $sql = "SELECT `Name` FROM `columns` WHERE idTable = ".$_GET['id'];
@@ -63,7 +66,7 @@
                     <td>
 
                         <select name="dbs" id="dbs" required>
-                        <option value="" selected disabled></option>
+                            <option value="" selected disabled></option>
 
                             <?php
                 
@@ -76,7 +79,7 @@
                         </select>
                     </td>
                     <td>
-                        <select name="tables" id="tables" required> 
+                        <select name="tables" id="tables" required>
                         </select>
                     </td>
                     <td>
@@ -84,13 +87,13 @@
                         </select>
                     </td>
                 </tr>
-                
+
             </table>
             <div class="d-flex justify-content-center align-items-center mt-2">
-            <input type="submit" class="btn btn-primary" value="Sauvegarder" name="save">
+                <input type="submit" class="btn btn-primary" value="Sauvegarder" name="save">
             </div>
         </form>
-            <?php
+        <?php
             if(isset($_POST['save'])){
                 $Constraint = $_POST['ConstName'];
                 $col1 = $_POST['col1'];
@@ -137,25 +140,37 @@
     <!-- <script src="js/jquery.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
     <!-- <script src="js/popper.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script> -->
 
 
     <script>
-        $(document).ready(function(){
-            $("#dbs").change(function(){
-                var selectedDb = $(this).val();
-                $.get("ajax.php",{selectedDb : selectedDb},function(data){ $("#tables").html(data) });
-            })
-            $("#tables").change(function(){
-                var selectedtable = $(this).val();
-                $.get("ajax.php",{selectedtable : selectedtable},function(data){ $("#col2").html(data) });
-            })
+    $(document).ready(function() {
+        $("#dbs").change(function() {
+            var selectedDb = $(this).val();
+            $.get("ajax.php", {
+                selectedDb: selectedDb
+            }, function(data) {
+                $("#tables").html(data)
+            });
         })
+        $("#tables").change(function() {
+            var selectedtable = $(this).val();
+            $.get("ajax.php", {
+                selectedtable: selectedtable
+            }, function(data) {
+                $("#col2").html(data)
+            });
+        })
+    })
     </script>
 </body>
 

@@ -50,12 +50,13 @@
 
         </nav>
         <div id="content" style="background-color: #eee;">
-            
+
             <div id="content" class="">
-            <header class=" w-100 pl-4 pt-1 pb-1 mb-2  shadow shadow-sm " style="background-color: #212832;">
-                <h3 style='color:#00ADB4;margin-bottom:0;height: 60px;display: flex;align-items: center;'>Gérer la base
-                    de données</h3>
-            </header>
+                <header class=" w-100 pl-4 pt-1 pb-1 mb-2  shadow shadow-sm " style="background-color: #212832;">
+                    <h3 style='color:#00ADB4;margin-bottom:0;height: 60px;display: flex;align-items: center;'>Gérer la
+                        base
+                        de données</h3>
+                </header>
                 <div class="p-3   pt-3">
                     <form action="" method="post">
                         <!-- card1 -->
