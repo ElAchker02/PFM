@@ -51,7 +51,6 @@
     
  <div id="content"   style="background-color: #eee;" >
     <header class=" w-100 pl-4 pt-1 pb-1 mb-2  shadow shadow-sm " style="background-color: #212832;" >
- <div >
  <?php if(isset($_GET['id'])){
                 $sql1 = "SELECT tableName FROM `tables` where id =". $_GET['id'];
                 $results = $cnx->query($sql1);
@@ -59,10 +58,10 @@
                 while($row = $results->fetch_assoc()){
                     $tableName = $row['tableName'];
                 }
-                echo "<h3 style='color:#00ADB4'>Base de données : ".$_GET['db']." >> Table : ".$tableName."</h3>";
+                echo "<h3 style='color:#00ADB4;margin-bottom:0;height: 70px;display: flex;align-items: center;'>Base de données : ".$_GET['db']." >> Table : ".$tableName."</h3>";
 
                 ?>
-</div>
+
 </header>
 <div class="pl-4 pr-4   pt-2">
 

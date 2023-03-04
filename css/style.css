@@ -8238,14 +8238,7 @@ h1, h2, h3, h4, h5,
     #sidebar ul li.active > a {
       background: transparent;
       color: #fff; }
-  @media (max-width: 991.98px) {
-    #sidebar {
-      margin-left: -250px; }
-      #sidebar.active {
-        margin-left: 0; }
-      #sidebar .custom-menu {
-        margin-right: -50px !important;
-        top: 10px !important; } }
+
   #sidebar .custom-menu {
     display: inline-block;
     position: absolute;
@@ -8283,9 +8276,7 @@ a[data-toggle="collapse"] {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%); }
 
-@media (max-width: 991.98px) {
-  #sidebarCollapse span {
-    display: none; } }
+
 
 #content {
   width: 100%;
