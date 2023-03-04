@@ -27,12 +27,12 @@
   
         <form action="" method="post">
             <table class="table table-sm table-bordered">
-                <tr>
-                    <td>Propriétés du constraint</td>
-                    <td>Collonne</td>
-                    <td>Base de données</td>
-                    <td>Table</td>
-                    <td>Collonne</td>
+                <tr style="background-color: #00ADB4; color:white;">
+                    <th>Propriétés du constraint</th>
+                    <th>Collonne</th>
+                    <th>Base de données</th>
+                    <th>Table</th>
+                    <th>Collonne</th>
                 </tr>
                 <tr>
                     <td><input type="text" name="ConstName" id="" class="form-control" placeholder="Nom du constraint" required>

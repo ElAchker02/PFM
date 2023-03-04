@@ -235,10 +235,10 @@
                 "ajax.php", {
                     db: database
                 },
-                function(data) {
-
-                }
+                function(data) {}
+                
             );
+            window.location.href = "index.php";
         })
         $("#deleteTab").click(function() {
             var tabInfos = $("#tableId").val();
@@ -250,6 +250,7 @@
 
                 }
             );
+            window.location.href = "index.php";
         })
     })
 

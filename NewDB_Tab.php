@@ -168,6 +168,7 @@
                         $('#tableBody').html(data);
                     }
                 );
+                
             }
 
 
@@ -183,6 +184,7 @@
                         $('#DBs').html(data);
                     }
                 );
+                
             } else {
                 alert('Donnez un nom a la base de données');
             }
