@@ -44,6 +44,7 @@ class GestionTables{
             }
     }
     public static function Modifier($tableName,$i,$cols,$colsType,$primaryKeyName,$primaryKeyType,$cle,$cnxS){
+        
         $sql3 = "update ".$tableName ." set ";
         for ($j=0; $j < $i; $j++) { 
             if($j == $i - 1){
@@ -129,7 +130,7 @@ class GestionTables{
 						echo '<li ><a href="#'.$row['Name'].'" id ="'.$row['Name'].'" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">'.$row['Name'].'</a>
 						<ul class="collapse list-unstyled" id="'.$row['Name'].'">';
 						while($row2 = $results2->fetch_assoc()){
-							echo '<li><a href="index.php?db='.$row['Name'].'&id='.$row2['id'].'">'.$row2['tableName'].'</a></li>';
+							echo '<li ><a href="index.php?db='.$row['Name'].'&id='.$row2['id'].'">'.$row2['tableName'].'</a></li>';
 						}
 						echo '</ul></li>';
 					}
