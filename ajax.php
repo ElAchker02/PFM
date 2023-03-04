@@ -41,11 +41,11 @@ include "Classes/GestionTables.php";
 
     }
     if(isset($_GET['nomDb'])){
-        GestionTables::CreateDatabase($_GET['nomDb']);
-    }
+        if(GestionTables::CreateDatabase($_GET['nomDb']));
+  }
     if(isset($_GET['db'])){
-        GestionTables::DropDataBase($_GET['db']);
-    }
+        if(GestionTables::DropDataBase($_GET['db']));
+        }
     if(isset($_GET['tableinfos'])){
         GestionTables::DropTable($_GET['tableinfos']);
     }

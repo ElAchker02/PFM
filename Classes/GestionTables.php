@@ -26,10 +26,11 @@ class GestionTables{
             $sql .= ");";
             $results =  $cnxS->query($sql);
             if(!$results){
-                echo 'il ya un probleme';
+                return false;
             }
             else{
-                echo 'il ya pas un probleme';
+                
+                return true;
             }
     }
     public static function Supprimer($db,$tableName,$cle,$primaryKeyName,$primaryKeyType){
@@ -37,10 +38,10 @@ class GestionTables{
         $sql = "DELETE from $tableName where $primaryKeyName =".($primaryKeyType == "VARCHAR" || $primaryKeyType == "DATE" || $primaryKeyType == "TEXT" ? "'". $cle ."'":$cle);
         $results =  $cnxS->query($sql);
             if(!$results){
-                echo 'il ya un probleme dans la suppression';
+                return false;
             }
             else{
-                echo 'il ya pas un probleme dans la suppression';
+                return true;
             }
     }
     public static function Modifier($tableName,$i,$cols,$colsType,$primaryKeyName,$primaryKeyType,$cle,$cnxS){
@@ -213,15 +214,17 @@ class GestionTables{
     
                     }
                 $cnx->query($sql4);
-                }  
+                } 
+                return 1; 
         }
         else{
-            echo "<script>alert('Vous nous pouvez pas creer ce table verifier que le nom que tu as entré  existe deja')</script>";
+            return 0;
         }
         
     }
     else{
-        echo "<script>alert('Le tableau doit contenir un cle primaire')</script>";
+        // echo "<script>alert('Le tableau doit contenir un cle primaire')</script>";
+        return 2;
     }
     
 
@@ -232,23 +235,47 @@ class GestionTables{
     include "Connection.php";
     $sql2 = "create database ".$db;
         $res = $cnx->query($sql2);
-        if($res){
-            $sql1 = "INSERT INTO `dbs`(`Name`) VALUES ('".$db."')";
-            $cnx->query($sql1);
-            $sql = "SELECT * FROM `dbs`";
-                                $results =  $cnx->query($sql);
-                                while($row = $results->fetch_assoc()){
-                                    echo "<option value='". $row['Name']."'>".$row['Name']."</option>";
-                                }
+        if(!$res){
+            return false;
         }
+        else{
+            $sql1 = "INSERT INTO `dbs`(`Name`) VALUES ('".$db."')";
+            $res2 =  $cnx->query($sql1);
+            if(!$res2){
+                return false;
+            }
+            else{
+                $sql = "SELECT * FROM `dbs`";
+                $results =  $cnx->query($sql);
+                while($row = $results->fetch_assoc()){
+                    echo "<option value='". $row['Name']."'>".$row['Name']."</option>";
+                }
+                return true;
+            }
+           
+        }
+        
         
    }
    public static function DropDataBase($db){
     include "Connection.php";
     $sql = "drop database ".$db;
-        $cnx->query($sql);
+    $result1 = $cnx->query($sql);
+    if(!$result1){
+        return false;
+    }
+    else{
         $sql2 = "delete from dbs where Name = '".$db."'";
-        $cnx->query($sql2);
+        $result2 = $cnx->query($sql2);
+        if(!$result2){
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+        
    }
    public static function DropTable($tableinfos){
     include "Connection.php";

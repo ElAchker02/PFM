@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -58,7 +59,7 @@
                 while($row = $results->fetch_assoc()){
                     $tableName = $row['tableName'];
                 }
-                echo "<h3 style='color:#00ADB4;margin-bottom:0;height: 70px;display: flex;align-items: center;'>Base de données : ".$_GET['db']." >> Table : ".$tableName."</h3>";
+                echo "<h3 style='color:#00ADB4;margin-bottom:0;height: 60px;display: flex;align-items: center;'>Base de données : ".$_GET['db']." >> Table : ".$tableName."</h3>";
 
                 ?>
 
@@ -190,8 +191,28 @@
             <?php }  ?>
             <?php 
                 if(isset($_POST['btnSub'])){
-                    GestionTables::Ajouter($_GET['db'],$tableName,$columnsNamee,$columns);
-                }
+                    if(GestionTables::Ajouter($_GET['db'],$tableName,$columnsNamee,$columns)){
+                        ?>
+                            <script>
+                                        Swal.fire(
+                                            "L'enregistrement inseré avec success",
+                                            '',
+                                            'success',
+                                        );
+                            </script>
+
+                    <?php } else{
+                        ?>
+                             <script>
+                                        Swal.fire(
+                                            "L'enregistrement pas inseré",
+                                            '',
+                                            'error'
+                                        );
+                            </script>
+                    <?php }?>
+                    <!-- <script>location.reload();</script> -->
+                <?php }
             ?>
 </div>
         </div>
@@ -236,6 +257,9 @@
     var id = url.substring(url.indexOf('=') + 1)
     var idz = id.substring(0,id.indexOf('&'))
     document.getElementById(idz).click();
+    </script>
+    <script>
+
     </script>
 
 </body>

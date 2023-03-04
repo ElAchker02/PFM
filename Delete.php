@@ -4,6 +4,7 @@
         GestionTables::Supprimer($_GET['db'],$_GET['tableName'],$_GET['cle'],$_GET['primaryName'],$_GET['primaryType']);
         header("location: /PFM1/index.php?db=".$_GET['db']."&id=".$_GET['idTable']);
         exit;  
+        
     }
     
 

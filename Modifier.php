@@ -35,7 +35,6 @@ while ($row = $results->fetch_row()) {
         
        
         
-        <input type="hidden" id="primarykeyName" value="<?php echo $_GET['primaryName'];?>">
         <form action="" method="post">
             <?php
     GestionTables::CreateForms($_GET['idTable'],$_GET['db']); ?>
@@ -65,10 +64,7 @@ while ($row = $results->fetch_row()) {
     ?>
         </form>
     </div>
-    <script>
-        var primary = document.getElementById('primarykeyName').value;
-        document.getElementById(primary).disabled = true;
-    </script>
+  
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"

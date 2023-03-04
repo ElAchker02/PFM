@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body style="background-color: #EEEEEE;">
@@ -107,7 +107,33 @@
                         $longueur = $_POST['longueur'];
                         $primary = $_POST['primary'];
 
-                        GestionTables::CreateTable($DBs,$table,$colonne,$types,$longueur,$primary);
+                        if(GestionTables::CreateTable($DBs,$table,$colonne,$types,$longueur,$primary) == 1){
+                            ?>
+                            <script>
+                                 Swal.fire(
+                                            "Le tableau est crée avec success",
+                                            '',
+                                            'success',
+                                        );
+                            </script>
+                        <?php } elseif(GestionTables::CreateTable($DBs,$table,$colonne,$types,$longueur,$primary) == 0){?>
+                            <script>
+                                 Swal.fire(
+                                            "Le tableau est pas crée",
+                                            '',
+                                            'error',
+                                        );
+                            </script>
+                        <?php }elseif (GestionTables::CreateTable($DBs,$table,$colonne,$types,$longueur,$primary) == 2){
+                            ?>
+                            <script>
+                                 Swal.fire(
+                                            "Le tableau doit contenir un clé primaire",
+                                            '',
+                                            'info',
+                                        );
+                            </script>
+                        <?php }
                    
                        
                     }
