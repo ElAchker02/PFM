@@ -29,7 +29,7 @@
     
                 <ul class="list-unstyled components mb-5">
                     <li>
-                        <a href="NewDB_Tab.php">Nouveau base de données & Nouveau tableau</a>
+                        <a href="NewDB_Tab.php">Nouveau BD & Table</a>
                     </li>
                     <?php
 					GestionTables::SideBarButtons((isset($_GET['id']) ? $_GET['id'] : 0));
@@ -99,8 +99,8 @@
                                 
                             </div>
                             <div class="modal-footer">
-                                <input type="submit" value="Sauvegarder" class="btn btn-secondary" name="btnSub">
-                                <input type="reset" value="Vider" class="btn btn-secondary" >
+                                <input type="submit" value="Sauvegarder" class="btn btn-success" name="btnSub">
+                                <input type="reset" value="Vider" class="btn btn-danger" >
                             </div>
                         </div>
                     </div>

@@ -9,7 +9,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Créer les relations</title>
+    <link rel="shortcut icon" href="img/L2.png">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,10 +20,13 @@
 </head>
 
 <body >
-    <div class="container">
-        <h1>Creer les relations</h1>
+<header style="height: 150px;width: 100%; background-color: #00ADB4;display: flex; justify-content: center; align-items: center;">
+            <h1 style="color: white;">Créer les relations</h1>
+             </header>
+    <div class="container mt-4 ">
+  
         <form action="" method="post">
-            <table class="table table-sm">
+            <table class="table table-sm table-bordered">
                 <tr>
                     <td>Propriétés du constraint</td>
                     <td>Collonne</td>
@@ -31,21 +35,21 @@
                     <td>Collonne</td>
                 </tr>
                 <tr>
-                    <td><input type="text" name="ConstName" id="" class="form-control" placeholder="Nom du constraint">
-                        ON DELETE <select name="Delete" id="">
+                    <td><input type="text" name="ConstName" id="" class="form-control" placeholder="Nom du constraint" required>
+                        ON DELETE <select name="Delete" id="" required>
                             <option value="" selected></option>
                             <option value="CASCADE">CASCADE</option>
                             <option value="SET NULL">SET NULL</option>
                             <option value="RESTRICT">RESTRICT</option>
                         </select>
-                        ON UPDATE <select name="Update" id="">
+                        ON UPDATE <select name="Update" id="" required>
                             <option value="" selected></option>
                             <option value="CASCADE">CASCADE</option>
                             <option value="SET NULL">SET NULL</option>
                             <option value="RESTRICT">RESTRICT</option>
                         </select></td>
 
-                    <td><select name="col1" id="">
+                    <td><select name="col1" id="" required>
                         <option value="" selected disabled></option>
                             <?php
                 
@@ -58,7 +62,7 @@
                         </select></td>
                     <td>
 
-                        <select name="dbs" id="dbs">
+                        <select name="dbs" id="dbs" required>
                         <option value="" selected disabled></option>
 
                             <?php
@@ -72,22 +76,19 @@
                         </select>
                     </td>
                     <td>
-                        <select name="tables" id="tables"> 
+                        <select name="tables" id="tables" required> 
                         </select>
                     </td>
                     <td>
-                        <select name="col2" id="col2">
+                        <select name="col2" id="col2" required>
                         </select>
                     </td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><input type="submit" class="btn btn-success" value="Sauvegarder" name="save"></td>
-                </tr>
+                
             </table>
+            <div class="d-flex justify-content-center align-items-center mt-2">
+            <input type="submit" class="btn btn-primary" value="Sauvegarder" name="save">
+            </div>
         </form>
             <?php
             if(isset($_POST['save'])){

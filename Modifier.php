@@ -19,6 +19,7 @@ while ($row = $results->fetch_row()) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/L2.png">
     <title><?php echo "Modifier le table ".$_GET['tableName'];?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -27,13 +28,21 @@ while ($row = $results->fetch_row()) {
 </head>
 
 <body>
-    <div class="container mt-4">
-        <h1><?php echo "Modifier le table ".$_GET['tableName'];?></h1>
+    <header style="height: 150px;width: 100%; background-color: #00ADB4;display: flex; justify-content: center; align-items: center;">
+            <h1 style="color: white;"><?php echo "Modifier le table ".$_GET['tableName'];?></h1>
+             </header>
+    <div class="container mt-4 ">
+        
+       
+        
         <input type="hidden" id="primarykeyName" value="<?php echo $_GET['primaryName'];?>">
         <form action="" method="post">
             <?php
     GestionTables::CreateForms($_GET['idTable'],$_GET['db']); ?>
-    <input type="submit" value="Modifier" name="btnsub" class="btn btn-primary mt-2">
+    <div class="d-flex justify-content-center align-items-center mt-2">
+    <input type="submit" value="Modifier" name="btnsub" class="btn btn-primary  ">
+    </div>
+   
     <?php
     $cnxS = new mysqli("localhost","root","",$_GET['db']);
     $sql2 = "SELECT * FROM ".$_GET['tableName'] ." WHERE ".$_GET['primaryName'] ." = ".($_GET['primaryType'] == "VARCHAR" || $_GET['primaryType'] == "DATE" || $_GET['primaryType'] == "TEXT" ? "'". $_GET['cle'] ."'":$_GET['cle']);
