@@ -27,7 +27,7 @@
   
         <form action="" method="post">
             <table class="table table-sm table-bordered">
-                <tr style="background-color: #00ADB4; color:white;">
+                <tr >
                     <th>Propriétés du constraint</th>
                     <th>Collonne</th>
                     <th>Base de données</th>
