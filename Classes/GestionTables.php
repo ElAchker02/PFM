@@ -23,7 +23,7 @@ class GestionTables{
                 
             }
         }
-            $sql .= ")";
+            $sql .= ");";
             $results =  $cnxS->query($sql);
             if(!$results){
                 echo 'il ya un probleme';
