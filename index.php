@@ -296,7 +296,7 @@
         <table class="table table-bordered shadow-lg mt-3 table-sm table-hover table-striped">
             <thead>
                 <tr style="background-color: #00ADB4; color:white;">
-                    <th scope="col">Nom</th>
+                    <th scope="col">Nom de la base de données</th>
                     <th scope="col">Supprimer</th>
                 </tr>
             </thead>
