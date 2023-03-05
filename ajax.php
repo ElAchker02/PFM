@@ -33,7 +33,7 @@ include "Classes/GestionTables.php";
             </tr>';
             }
             echo '                <tr>
-            <td><input type="submit" value="Creer colonnes" name="btnsubmit"  class="btn btn-primary"></td>
+            <td><input type="submit" value="Creer colonnes" name="btnsubmit" id="btnsubmit" class="btn btn-primary"></td>
         </tr>
         </tbody></table>';
         }

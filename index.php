@@ -24,7 +24,7 @@
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
             <div class="pt-2 pl-2 pr-2 ">
-                <a href="index.php" class="logo"><img src="img/L1.png" class="ml-0 w-100 " alt="Logo"></a>
+                <a href="dataBases.php" class="logo"><img src="img/L1.png" class="ml-0 w-100 " alt="Logo"></a>
             </div>
             <div class="pl-4 pr-4">
 
@@ -286,30 +286,7 @@
             </div>
         </div>
     </div>
-    <?php } else{ 
-        ?>
-        <header class=" w-100 pl-4 pt-1 pb-1 mb-2  shadow shadow-sm " style="background-color: #212832;">
-               <h3 style='color:#00ADB4;margin-bottom:0;height: 60px;display: flex;align-items: center; justify-content:center;'>Base de données</h3>
-
-            </header>
-    <div class="container">
-        <table class="table table-bordered shadow-lg mt-3 table-sm table-hover table-striped">
-            <thead>
-                <tr style="background-color: #00ADB4; color:white;">
-                    <th scope="col">Nom de la base de données</th>
-                    <th scope="col">Supprimer</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    GestionTables::LoadDb();
-                ?>
-            </tbody>
-        </table>
-    </div>
-
-    <?php }
-            ?>
+    <?php }?>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -331,7 +308,7 @@
                 function(data) {}
 
             );
-            window.location.href = "index.php";
+            window.location.href = "dataBases.php";
         })
         $("#deleteTab").click(function() {
             var tabInfos = $("#tableId").val();
@@ -343,7 +320,7 @@
 
                 }
             );
-            window.location.href = "index.php";
+            window.location.href = "dataBases.php";
         })
     })
 

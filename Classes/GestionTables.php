@@ -73,12 +73,12 @@ class GestionTables{
         $cnxS = new mysqli("localhost","root","",$db);
         $sql6 = "SELECT $infos[1] FROM $tableName";
         $results6 =  $cnxS->query($sql6);
-        echo "<select name=".$col." class='form-control'>";
+        echo "<select name=".$col." id =".$col." class='form-control'>";
         while($row = $results6->fetch_row()){
             echo "<option value='".$row[0]."' >".$row[0]."</option>";
         }
         echo "</select>";
-        // echo $sql6;
+        
 
     }
     public static function CreateForms($idTable,$db){
@@ -223,7 +223,6 @@ class GestionTables{
         
     }
     else{
-        // echo "<script>alert('Le tableau doit contenir un cle primaire')</script>";
         return 2;
     }
     

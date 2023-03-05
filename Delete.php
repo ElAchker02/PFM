@@ -8,7 +8,7 @@
     }
     if(isset($_GET['base'])){
         GestionTables::DropDataBase($_GET['base']);
-        header("location: index.php");
+        header("location: dataBases.php");
         exit;  
         
     }

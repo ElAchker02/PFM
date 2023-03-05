@@ -25,7 +25,7 @@
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
             <div class="pt-2 pl-2 pr-2 ">
-                <a href="index.php" class="logo"><img src="img/L1.png" class="ml-0 w-100 " alt="Logo"></a>
+                <a href="dataBases.php" class="logo"><img src="img/L1.png" class="ml-0 w-100 " alt="Logo"></a>
             </div>
             <div class="pl-4 pr-4">
 
@@ -142,10 +142,10 @@
                                     'info',
                                 );
                                 </script>
-                                <?php }
+                                <?php }?>
                    
                        
-                    }
+                    <?php }
                  ?>
 
 
@@ -166,6 +166,7 @@
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
         </script>
         <script>
+            
         $(document).ready(function() {
             $("#CreateTable").click(function() {
                 var nbCol = $("#nbColonnes").val();
@@ -203,6 +204,8 @@
 
 
             })
+            
+
             $("#types0").change(function() {
                 if ($(this).val() != "VARCHAR") {
                     $("#longueur0").attr('disabled', 'disabled');
