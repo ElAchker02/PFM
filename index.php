@@ -51,8 +51,10 @@
 
 
         <div id="content" style="background-color: #eee;">
+            <?php if(isset($_GET['id'])){?>
+
             <header class=" w-100 pl-4 pt-1 pb-1 mb-2  shadow shadow-sm " style="background-color: #212832;">
-                <?php if(isset($_GET['id'])){
+                <?php
                 $sql1 = "SELECT tableName FROM `tables` where id =". $_GET['id'];
                 $results = $cnx->query($sql1);
                 $tableName;
@@ -79,6 +81,38 @@
                         <button type="button" class="btn btn-secondary"
                             style="border-left: 1px solid white ; border-right: 1px solid white;"
                             id="deleteTab">Supprimer Table</button>
+
+                        <button type="button" class="btn btn-secondary"
+                            style="border-left: 1px solid white ; border-right: 1px solid white;" id=""
+                            data-toggle="modal" data-target="#exampleModal2">Changer le nom du table</button>
+                        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Changer le nom du table
+                                            <?php echo $tableName;?></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="" method="post">
+                                        <div class="modal-body">
+                                            <label for="table">Nom du table</label>
+                                            <input type="text" class="form-control" required name="table" id="table"
+                                                placeholder="Entrer  le nom du table">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Fermer</button>
+                                            <input type="submit" class="btn btn-success" name="btnChange"
+                                                value="Changer">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                         <a href="addRelations.php?db=<?php echo $_GET['db']."&id=". $_GET['id'] ; ?>"
                             class="btn btn-secondary" target="_blank"
                             style="border-left: 1px solid white ; border-right: 1px solid white;" id="relations">Créer
@@ -87,6 +121,30 @@
                             style="border-left: 1px solid white ; border-right: 1px solid white;" id="inserer"
                             data-toggle="modal" data-target="#exampleModal">Insérer</button>
                     </div>
+                    <?php 
+                    if(isset($_POST["btnChange"])){
+                        if(GestionTables::ChangeTableName($tableName,$_POST["table"],$_GET["id"],$_GET["db"])){
+                            ?>
+                    <script>
+                    Swal.fire(
+                        "Le nom du Table est changé actualiser la page",
+                        '',
+                        'success',
+                    );
+                    </script>
+
+                    <?php } else{
+                                    ?>
+                    <script>
+                    Swal.fire(
+                        "Le nom du Table est pas changer",
+                        '',
+                        'error'
+                    );
+                    </script>
+                    <?php }?>
+                    <?php }
+                    ?>
                 </div>
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -165,7 +223,6 @@
                     </thead>
                     <tbody>
                         <?php 
-                        // echo $primaryIndex;
                         $cnxS = new mysqli("localhost","root","",$_GET['db']);
                         $sql = "SELECT * FROM $tableName";
                         $results =  $cnxS->query($sql);
@@ -226,12 +283,33 @@
                 );
                 </script>
                 <?php }?>
-                <!-- <script>location.reload();</script> -->
-                <?php }
-            ?>
             </div>
         </div>
     </div>
+    <?php } else{ 
+        ?>
+        <header class=" w-100 pl-4 pt-1 pb-1 mb-2  shadow shadow-sm " style="background-color: #212832;">
+               <h3 style='color:#00ADB4;margin-bottom:0;height: 60px;display: flex;align-items: center; justify-content:center;'>Base de données</h3>
+
+            </header>
+    <div class="container">
+        <table class="table table-bordered shadow-lg mt-3 table-sm table-hover table-striped">
+            <thead>
+                <tr style="background-color: #00ADB4; color:white;">
+                    <th scope="col">Nom</th>
+                    <th scope="col">Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    GestionTables::LoadDb();
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    <?php }
+            ?>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -273,9 +351,6 @@
     var id = url.substring(url.indexOf('=') + 1)
     var idz = id.substring(0, id.indexOf('&'))
     document.getElementById(idz).click();
-    </script>
-    <script>
-
     </script>
 
 </body>
