@@ -106,7 +106,6 @@ class GestionTables{
                                             elseif ($row[1] == "INT" ){?>
                                                 <td> <label for="<?php echo $row[0];?>"><?php echo $row[0];?></label></td>
                                                 <?php if($row[5] == 'rien'){?>
-                                           
                                            <td><input type="number" name="<?php echo $row[0];?>" id="<?php echo $row[0];?>" class="form-control" required ></td>
                                            <?php } 
                                            else { ?> <td><?php self::LoadforeignSelect($row[5],$db,$row[0]); }?></td> <br>
@@ -193,7 +192,6 @@ class GestionTables{
     if($found == true){
         $res = $cnxS->query($sql1);
         if($res){
-           
                 $sql2 = "INSERT INTO `tables`(`tableName`, `DB`) VALUES ('$table','$DBs')";
                 $cnx->query($sql2);
                 
