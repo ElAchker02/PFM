@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 03, 2023 at 01:46 PM
+-- Generation Time: Mar 06, 2023 at 09:42 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.4.9
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `tables` (
   `DB` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fkDb_Table` (`DB`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 
 --
 -- Constraints for dumped tables
